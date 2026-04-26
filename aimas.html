@@ -1,0 +1,1559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIMAS | African Institute of Management and Administrative Sciences</title>
+    <meta name="description" content="Premier institution for management and administrative sciences in Africa, focused on unlocking Africa's potential through efficient and effective management of resources, innovation, and sustainable development.">
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* ================= CSS VARIABLES & THEMING ================= */
+        :root {
+            /* Light Theme Palette */
+            --bg-color: #FFFFFF;
+            --bg-secondary: #F8F9FA;
+            --text-main: #1A1A1A;
+            --text-muted: #555555;
+            --card-bg: #FFFFFF;
+            --border-color: #E2E8F0;
+            
+            /* Brand Colors */
+            --primary: #0A5C36;     /* Dark Green */
+            --primary-dark: #004D28;
+            --accent: #D4AF37;      /* Rich Gold/Amber */
+            --accent-hover: #C5A030;
+            
+            /* UI Elements */
+            --nav-bg: rgba(255, 255, 255, 0.95);
+            --shadow-sm: 0 4px 6px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 10px 25px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.15);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        [data-theme="dark"] {
+            /* Dark Theme Palette */
+            --bg-color: #0F172A;
+            --bg-secondary: #1E293B;
+            --text-main: #F8FAFC;
+            --text-muted: #CBD5E1;
+            --card-bg: #1E293B;
+            --border-color: #334155;
+            --nav-bg: rgba(15, 23, 42, 0.95);
+            --shadow-sm: 0 4px 6px rgba(0, 0, 0, 0.3);
+            --shadow-md: 0 10px 25px rgba(0, 0, 0, 0.4);
+            --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        /* ================= RESET & TYPOGRAPHY ================= */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            transition: background-color 0.4s, color 0.4s;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: 700;
+            line-height: 1.2;
+            color: var(--text-main);
+        }
+
+        p {
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition);
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-header h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background-color: var(--accent);
+            border-radius: 2px;
+        }
+
+        section {
+            padding: 6rem 0;
+        }
+
+        /* ================= BUTTONS ================= */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            border: 2px solid transparent;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: #FFFFFF;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-accent {
+            background-color: var(--accent);
+            color: #FFFFFF;
+        }
+
+        .btn-accent:hover {
+            background-color: var(--accent-hover);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        [data-theme="dark"] .btn-outline {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--primary);
+            color: #FFFFFF;
+        }
+        
+        [data-theme="dark"] .btn-outline:hover {
+            background-color: var(--accent);
+            color: #FFFFFF;
+        }
+
+        /* ================= NAVBAR ================= */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            background-color: transparent;
+            transition: var(--transition);
+            padding: 1rem 0;
+        }
+
+        header.scrolled {
+            background-color: var(--nav-bg);
+            backdrop-filter: blur(10px);
+            box-shadow: var(--shadow-sm);
+            padding: 0.5rem 0;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .logo img {
+            height: 50px;
+            border-radius: 4px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            font-weight: 500;
+            font-size: 1rem;
+            color: #FFFFFF;
+            position: relative;
+        }
+
+        header.scrolled .nav-links a, 
+        [data-theme="dark"] header.scrolled .nav-links a {
+            color: var(--text-main);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover::after, .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            color: #FFFFFF;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        header.scrolled .theme-toggle {
+            color: var(--text-main);
+        }
+
+        .theme-toggle:hover {
+            color: var(--accent);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: #FFFFFF;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        header.scrolled .mobile-menu-btn {
+            color: var(--text-main);
+        }
+
+        /* ================= HERO SECTION ================= */
+        .hero {
+            height: 100vh;
+            background-image: linear-gradient(to right, rgba(10, 92, 54, 0.9), rgba(10, 92, 54, 0.4)), url('https://via.placeholder.com/1920x1080/0A5C36/FFFFFF?text=Modern+African+Leadership');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed; /* Parallax Effect */
+            display: flex;
+            align-items: center;
+            position: relative;
+            padding-top: 80px;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            color: #FFFFFF;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero-tagline {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background-color: rgba(212, 175, 55, 0.2);
+            border: 1px solid var(--accent);
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent);
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 6vw, 4.5rem);
+            margin-bottom: 1.5rem;
+            color: #FFFFFF;
+        }
+
+        .hero p {
+            font-size: clamp(1.1rem, 2vw, 1.3rem);
+            color: #E2E8F0;
+            margin-bottom: 2.5rem;
+            max-width: 650px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        /* ================= WELCOME / ABOUT SECTION ================= */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-image {
+            position: relative;
+        }
+
+        .about-image img {
+            border-radius: 12px;
+            box-shadow: var(--shadow-lg);
+            z-index: 2;
+            position: relative;
+        }
+
+        .about-image::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            width: 100%;
+            height: 100%;
+            border: 4px solid var(--accent);
+            border-radius: 12px;
+            z-index: 1;
+        }
+
+        .about-image-badge {
+            position: absolute;
+            bottom: -30px;
+            right: -30px;
+            background-color: var(--primary);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow-md);
+            z-index: 3;
+            text-align: center;
+        }
+
+        .about-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        [data-theme="dark"] .about-content h2 {
+            color: var(--accent);
+        }
+
+        .signature {
+            font-family: 'Brush Script MT', cursive, serif;
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-top: 1rem;
+        }
+        
+        [data-theme="dark"] .signature {
+            color: var(--accent);
+        }
+
+        /* ================= STRATEGIC INTENT ================= */
+        .intent-section {
+            background-color: var(--bg-secondary);
+        }
+
+        .intent-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .intent-card {
+            background-color: var(--card-bg);
+            padding: 3rem 2rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            border-bottom: 4px solid transparent;
+            text-align: center;
+        }
+
+        .intent-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+            border-bottom-color: var(--accent);
+        }
+
+        .intent-icon {
+            width: 80px;
+            height: 80px;
+            background-color: rgba(10, 92, 54, 0.1);
+            color: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin: 0 auto 1.5rem;
+            transition: var(--transition);
+        }
+        
+        [data-theme="dark"] .intent-icon {
+            background-color: rgba(212, 175, 55, 0.1);
+            color: var(--accent);
+        }
+
+        .intent-card:hover .intent-icon {
+            background-color: var(--primary);
+            color: #FFFFFF;
+        }
+
+        .intent-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        /* ================= PROGRAMS SECTION ================= */
+        .programs-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            background-color: transparent;
+            border: 2px solid var(--border-color);
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-main);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .tab-btn.active, .tab-btn:hover {
+            background-color: var(--primary);
+            border-color: var(--primary);
+            color: #FFFFFF;
+        }
+
+        .programs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .program-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2rem;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            display: none; /* Handled by JS */
+        }
+
+        .program-card.show {
+            display: block;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        .program-card:hover {
+            border-color: var(--accent);
+            box-shadow: var(--shadow-md);
+        }
+
+        .program-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background-color: var(--accent);
+            transform: scaleY(0);
+            transition: transform 0.3s ease;
+            transform-origin: bottom;
+        }
+
+        .program-card:hover::before {
+            transform: scaleY(1);
+        }
+
+        .program-abbr {
+            display: inline-block;
+            background-color: rgba(10, 92, 54, 0.1);
+            color: var(--primary);
+            padding: 0.3rem 0.8rem;
+            border-radius: 4px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+        
+        [data-theme="dark"] .program-abbr {
+            background-color: rgba(212, 175, 55, 0.1);
+            color: var(--accent);
+        }
+
+        .program-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            min-height: 3.9rem;
+        }
+
+        .program-duration {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+        }
+
+        /* ================= MODAL ================= */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(5px);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background-color: var(--bg-color);
+            width: 90%;
+            max-width: 600px;
+            border-radius: 12px;
+            padding: 3rem;
+            position: relative;
+            transform: translateY(30px) scale(0.95);
+            transition: var(--transition);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: translateY(0) scale(1);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .close-modal:hover {
+            color: var(--accent);
+            transform: rotate(90deg);
+        }
+
+        /* ================= GALLERY CAROUSEL ================= */
+        .gallery-section {
+            padding: 0;
+            overflow: hidden;
+            background-color: var(--bg-secondary);
+        }
+
+        .carousel-container {
+            display: flex;
+            width: 300%; /* 3 slides */
+            transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .carousel-slide {
+            width: 33.333%;
+            height: 70vh;
+            min-height: 500px;
+            position: relative;
+        }
+
+        .carousel-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .carousel-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 4rem 2rem 2rem;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            color: #FFFFFF;
+        }
+
+        /* ================= STATS & TESTIMONIALS ================= */
+        .stats-section {
+            background-color: var(--primary);
+            color: #FFFFFF;
+            padding: 5rem 0;
+            position: relative;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .stat-item h3 {
+            font-size: 3.5rem;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-item p {
+            color: #E2E8F0;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 0;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .testimonial-card {
+            background-color: var(--card-bg);
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow-sm);
+            position: relative;
+        }
+
+        .quote-icon {
+            color: rgba(212, 175, 55, 0.2);
+            font-size: 4rem;
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+            z-index: 0;
+        }
+
+        .testimonial-content {
+            position: relative;
+            z-index: 1;
+            font-style: italic;
+            margin-bottom: 1.5rem;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .author-info h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.2rem;
+        }
+        
+        .author-info span {
+            color: var(--accent);
+            font-size: 0.9rem;
+        }
+
+        /* ================= CONTACT & MAP ================= */
+        .contact-section {
+            background-color: var(--bg-secondary);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+        }
+
+        .contact-info {
+            padding: 2.5rem;
+            background-color: var(--primary);
+            color: #FFFFFF;
+            box-sizing: border-box !important;
+    width: 100% !important;
+    word-break: break-word !important;
+    overflow-wrap: break-word !important;
+        }
+
+        .contact-info h3 {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: #FFFFFF;
+        }
+
+        .info-item {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .info-icon {
+            width: 50px;
+            height: 50px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 90%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: var(--accent);
+            flex-shrink: 0;
+        }
+
+        .info-content h4 {
+            color: #FFFFFF;
+            margin-bottom: 0.5rem;
+        }
+
+        .info-content p, .info-content a {
+            color: #E2E8F0;
+            margin: 0;
+        }
+
+        .info-content a:hover {
+            color: var(--accent);
+        }
+
+        .contact-form {
+            padding: 4rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-control {
+            width: 80%;
+            padding: 1rem 1.5rem;
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-family: inherit;
+            color: var(--text-main);
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(10, 92, 54, 0.1);
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        .map-container {
+            height: 200px;
+            width: 100%;
+        }
+
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        /* ================= FOOTER ================= */
+        footer {
+            background-color: #052e1b;
+            color: #E2E8F0;
+            padding: 4rem 0 2rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-brand img {
+            height: 60px;
+            margin-bottom: 1.5rem;
+            border-radius: 4px;
+        }
+
+        .footer-brand p {
+            color: #CBD5E1;
+            margin-bottom: 1.5rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background-color: var(--accent);
+            color: #FFFFFF;
+            transform: translateY(-3px);
+        }
+
+        .footer-col h4 {
+            color: #FFFFFF;
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .footer-col h4::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 30px;
+            height: 2px;
+            background-color: var(--accent);
+        }
+
+        .footer-col ul li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-col ul li a {
+            color: #CBD5E1;
+        }
+
+        .footer-col ul li a:hover {
+            color: var(--accent);
+            padding-left: 5px;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            color: #94A3B8;
+        }
+
+        /* ================= RESPONSIVE DESIGN ================= */
+        @media (max-width: 1024px) {
+            .hero h1 { font-size: 3.5rem; }
+            .about-grid, .contact-grid { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+            .about-image { margin-bottom: 2rem; }
+            .contact-info, .contact-form { padding: 2.5rem; }
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-btn { display: block; }
+            
+            .nav-links {
+                position: absolute;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                background-color: var(--card-bg);
+                flex-direction: column;
+                padding: 2rem 0;
+                box-shadow: var(--shadow-md);
+                transition: var(--transition);
+            }
+
+            .nav-links.active { left: 0; }
+            
+            .nav-links a { color: var(--text-main) !important; }
+
+            .hero { background-attachment: scroll; } /* Parallax off on mobile */
+            .hero h1 { font-size: 2.5rem; }
+            
+            .footer-grid { grid-template-columns: 1fr; }
+            
+            .carousel-slide { height: 50vh; }
+        }
+
+        /* Keyframes */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ================= NAVBAR ================= -->
+    <header id="navbar">
+        <div class="container">
+            <nav>
+                <a href="#" class="logo">
+                    <img src="aimas.png" alt="AIMAS Logo">
+                </a>
+                
+                <div class="nav-links" id="navLinks">
+                    <a href="#home" class="active">Home</a>
+                    <a href="#about">About</a>
+                    <a href="#strategic-intent">Strategic Intent</a>
+                    <a href="#programs">Programs</a>
+                    <a href="#contact">Contact</a>
+                </div>
+
+                <div class="nav-actions">
+                    <button class="theme-toggle" id="themeToggle" aria-label="Toggle Dark Mode">
+                        <i class="fa-solid fa-moon"></i>
+                    </button>
+                    <a href="#programs" class="btn btn-accent" style="padding: 0.5rem 1.2rem; font-size: 0.9rem;">Apply Now</a>
+                    <button class="mobile-menu-btn" id="mobileMenuBtn">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- ================= HERO ================= -->
+        <section id="home" class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <span> <class="hero-tagline">Empowering African Leaders for Excellence</span>
+                    <h1>Unlock Africa's True Potential</h1>
+                    <p>Premier institution for management and administrative sciences, driving economic growth, innovation, and sustainable development across the continent.</p>
+                    <div class="hero-buttons">
+                        <a href="#programs" class="btn btn-primary">Explore Programs <i class="fa-solid fa-arrow-right"></i></a>
+                        <a href="#about" class="btn btn-outline" style="color: #fff; border-color: #fff;">Discover AIMAS</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= ABOUT / WELCOME ================= -->
+        <section id="about">
+            <div class="container">
+                <div class="about-grid">
+                    <div class="about-image">
+                        <img src="simon.png" alt="Dr. Ibrahim S. Gimba, President of AIMAS">
+                        <div class="about-image-badge">
+                            <h3 style="font-size: 2rem; margin-bottom: 0;">20+</h3>
+                            <p style="color: #fff; margin:0; font-size: 0.9rem;">Years of Excellence</p>
+                        </div>
+                    </div>
+                    <div class="about-content">
+                        <span style="color: var(--accent); font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">Welcome Address</span>
+                        <h2>Developing Global Leaders with an African Perspective</h2>
+                        <p>I Specially Warmly Welcome our esteemed Members, students, distinguished faculty members to the African Institute of Management and Administrative Sciences! As you commence your journey with African Institute of Management and Administrative Sciences you will loudly achieve milestone in your academic and professional Career. As the President and Chief Registrar of this esteemed institution, it is my pleasure to welcome you to our community of scholars, leaders, and change-makers.
+
+As you begin your Educational professional training, studies with us, you become part of a legacy of excellence, innovation, and impact. Our institution has rich resources that will enhance our clients to become trailblazers in their fields, driving economic growth, social progress, and sustainable development across Africa and beyond.
+
+Our professional academic programs are designed to challenge your minds, inspire your creativity, and equip you with the knowledge, skills, and leadership abilities necessary to succeed in an increasingly complex and interconnected world. Our faculty members are renowned experts in their fields, and our curriculum is constantly evolving to address the emerging challenges and opportunities of our continent..</p>
+                        <p>Our programs are meticulously designed to equip professionals with the strategic frameworks required to navigate complex global markets while remaining deeply rooted in the realities of the African business landscape. We do not just educate; we transform potential into impactful leadership.</p>
+                        <div class="signature">
+                            Dr. Ibrahim S. Gimba
+                        </div>
+                        <p style="font-size: 0.9rem; font-weight: 600; color: #BA8E23; margin-top: 5px;">President / Chief Registrar, AIMAS</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= STRATEGIC INTENT ================= -->
+        <section id="strategic-intent" class="intent-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Strategic Intent</h2>
+                    <p>The foundational principles guiding our pursuit of academic and administrative excellence.</p>
+                </div>
+                
+                <div class="intent-grid">
+                    <div class="intent-card">
+                        <div class="intent-icon">
+                            <i class="fa-solid fa-eye"></i>
+                        </div>
+                        <h3>Our Vision</h3>
+                        <p>To be a premier institution for management and administrative sciences in Africa, renowned for excellence, innovation, and impactful research.</p>
+                    </div>
+                    
+                    <div class="intent-card">
+                        <div class="intent-icon">
+                            <i class="fa-solid fa-rocket"></i>
+                        </div>
+                        <h3>Our Mission</h3>
+                        <p>Empowering African leaders and organizations to achieve excellence in management and administration, driving economic growth and sustainable development.</p>
+                    </div>
+                    
+                    <div class="intent-card">
+                        <div class="intent-icon">
+                            <i class="fa-solid fa-scale-balanced"></i>
+                        </div>
+                        <h3>Core Values</h3>
+                        <p>Integrity, Innovation, Pan-Africanism, Excellence, and Sustainable Resource Management.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= PROGRAMS ================= -->
+        <section id="programs">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Our Academic Programs</h2>
+                    <p>Rigorous, internationally aligned curricula tailored for modern professionals.</p>
+                </div>
+
+                <div class="programs-tabs">
+                    <button class="tab-btn active" data-target="masters">Master's Programs</button>
+                    <button class="tab-btn" data-target="doctoral">Doctoral Programs</button>
+                </div>
+
+                <div class="programs-grid" id="programsGrid">
+                    <!-- Cards injected via JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= GALLERY CAROUSEL ================= -->
+        <section id="gallery" class="gallery-section">
+            <div class="carousel-container" id="carouselTrack">
+                <div class="carousel-slide">
+                    <img src="Annual.png" alt="Graduation Ceremony">
+                    <div class="carousel-overlay">
+                        <h3 style="color: #FFDF00;">Annual Conference</h3>
+                        <pstyle="color: blue;">Celebrating the next generation of African business leaders.</p>
+                    </div>
+                </div>
+                <div class="carousel-slide">
+                    <img src="training.png" alt="Leadership"
+                    style="width: auto; max-width: 130%; height: auto; display: block;"
+>
+                    <div class="carousel-overlay">
+                        <h3 style="color: #FFDF00;">Executive Leadership Training</h3>
+                        <p style="color: white;">Hands-on workshops focused on strategic resource management.</p>
+                    </div>
+                </div>        
+                <div class="carousel-slide">
+                    <img src="pan.png" alt="African"
+                  
+                    style="width: auto; max-width: 98%; height: auto; display: block;">
+                    <div class="carousel-overlay">
+                        <h3 style="color: #FFDF00;">Pan-African Leaders Forum</h3>
+                        <p style="color: white;">Networking and collaborating across continental borders.</p>
+                    </div>
+                </div>
+              
+               
+            </div>
+        </section>
+
+        <!-- ================= STATS & TESTIMONIALS ================= -->
+        <section id="stats" class="stats-section">
+            <div class="container">
+                <div class="stats-grid" id="counterContainer">
+                    <div class="stat-item">
+                        <h3 class="counter" data-target="500">0</h3>
+                        <p>Leaders Trained</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3 class="counter" data-target="10">0</h3>
+                        <p>Premium Programs</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3 class="counter" data-target="15">0</h3>
+                        <p>African Countries</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3 class="counter" data-target="50">0</h3>
+                        <p>Expert Faculty</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="testimonials" style="background-color: var(--bg-secondary);">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Why Choose AIMAS?</h2>
+                    <p>Hear from the professionals who have transformed their careers with us.</p>
+                </div>
+                
+                <div class="testimonials-grid">
+                    <div class="testimonial-card">
+                        <i class="fa-solid fa-quote-right quote-icon"></i>
+                        <p class="testimonial-content">"The PMBA at AIMAS completely restructured how I view resource management in a developing economy. The faculty's insights are deeply relevant to our local markets while maintaining global standards."</p>
+                        <div class="testimonial-author">
+                            <div class="author-info">
+                                <h4>Ngozi A.</h4>
+                                <span>Corporate Strategy Director</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <i class="fa-solid fa-quote-right quote-icon"></i>
+                        <p class="testimonial-content">"Pursuing my Doctorate in Public Administration here has empowered me to implement more effective policies in my state agency. The emphasis on practical innovation is unmatched."</p>
+                        <div class="testimonial-author">
+                            <div class="author-info">
+                                <h4>Dr. Kwame M.</h4>
+                                <span>Public Sector Consultant</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <i class="fa-solid fa-quote-right quote-icon"></i>
+                        <p class="testimonial-content">"AIMAS didn't just give me a degree; it gave me a robust Pan-African network. The Entrepreneurship and Innovation program provided the blueprint for scaling my startup across borders."</p>
+                        <div class="testimonial-author">
+                            <div class="author-info">
+                                <h4>Fatima D.</h4>
+                                <span>Tech Entrepreneur</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= CONTACT & MAP ================= -->
+        <section id="contact" class="contact-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Get in Touch</h2>
+                    <p>Begin your journey to leadership excellence today.</p>
+                </div>
+
+                <div class="contact-grid">
+                    <div class="contact-info">
+                        <h3>Contact Information</h3>
+                        <p style="color: #E2E8F0; margin-bottom: 2rem;">Our admissions team is available to assist you with inquiries regarding programs, eligibility, and the application process.</p>
+                        
+                        <div class="info-item">
+                            <div class="info-icon"><i class="fa-solid fa-location-dot"></i></div>
+                            <div class="info-content">
+                                <h4>Campus Location</h4>
+                                <p>Suite 17, Shafa Plaza, Near Access Bank PLC,<br>Durumi District, Area 1, Garki-Abuja, Nigeria</p>
+                            </div>
+                        </div>
+
+                        <div class="info-item">
+                            <div class="info-icon"><i class="fa-solid fa-envelope"></i></div>
+                            <div class="info-content">
+                                <h4>Email Us</h4>
+                                <p><a href="mailto:info@aimas.com.ng">info@aimas.com.ng</a></p>
+                                <p><a href="mailto:africaninstituteofmanagementas@gmail.com">africaninstituteofmanagementas@gmail.com</a></p>
+                            </div>
+                        </div>
+
+                        <div class="info-item">
+                            <div class="info-icon"><i class="fa-solid fa-phone"></i></div>
+                            <div class="info-content">
+                                <h4>Call Us</h4>
+                                <p><a href="tel:+2348035676214">+234 803 567 6214</a></p>
+                                <p><a href="tel:+2347045698949">+234 704 569 8949</a></p>
+                                <p><a href="tel:+2349057338848">+234 905 733 8848</a></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="contact-form">
+                        <h3 style="font-size: 1.8rem; margin-bottom: 1.5rem;">Send a Message</h3>
+                        <form onsubmit="event.preventDefault(); alert('Message feature will be connected to backend.');">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Your Full Name" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="email" class="form-control" placeholder="Your Email Address" required>
+                            </div>
+                            <div class="form-group">
+                                <select class="form-control" required>
+                                    <option value="" disabled selected>Select Program of Interest</option>
+                                    <option value="pmba">Professional MBA</option>
+                                    <option value="doctorate">Doctorate Program</option>
+                                    <option value="general">General Inquiry</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <textarea class="form-control" placeholder="Your Message" required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary" style="width: 100%;">Send Inquiry <i class="fa-regular fa-paper-plane"></i></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Google Maps iframe -->
+            <div class="map-container" style="margin-top: 4rem;">
+                <!-- Exact Map embed for Shafa Plaza, Durumi, Abuja -->
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3940.3807212008436!2d7.4728!3d9.0270!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x104e0b0000000000%3A0x0!2zU2hhZmEgUGxhemE!5e0!3m2!1sen!2sng!4v1610000000000!5m2!1sen!2sng" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </section>
+    </main>
+
+    <!-- ================= FOOTER ================= -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <img src="aimass.png" alt="AIMAS Logo"
+                    style="width: auto; max-width: 20%; height: auto; display: block;">
+                    <p>Empowering African leaders and organizations to achieve excellence in management and administration, driving economic growth and sustainable development.</p>
+                    <p><strong>CAC Registration:</strong> 7478267 <br>(CAMA 2020)</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                        <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#about">About the Institute</a></li>
+                        <li><a href="#strategic-intent">Vision & Mission</a></li>
+                        <li><a href="#gallery">Campus Life</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Academics</h4>
+                    <ul>
+                        <li><a href="#programs">Master's Programs</a></li>
+                        <li><a href="#programs">Doctoral Programs</a></li>
+                        <li><a href="#programs">Executive Education</a></li>
+                        <li><a href="#contact">Admissions</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Accreditation</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2026 African Institute of Management and Administrative Sciences (AIMAS). All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ================= PROGRAM MODAL ================= -->
+    <div class="modal-overlay" id="programModal">
+        <div class="modal-content">
+            <button class="close-modal" id="closeModal"><i class="fa-solid fa-xmark"></i></button>
+            <span class="program-abbr" id="modalAbbr" style="margin-bottom: 1rem;"></span>
+            <h2 id="modalTitle" style="color: var(--primary); margin-bottom: 1rem; font-size: 1.8rem;"></h2>
+            <div class="program-duration">
+                <i class="fa-regular fa-clock"></i> <span id="modalDuration"></span>
+            </div>
+            <p id="modalDesc" style="margin-bottom: 2rem; font-size: 1.1rem; color: var(--text-main);"></p>
+            
+            <h4 style="margin-bottom: 1rem;">Core Focus Areas:</h4>
+            <ul style="margin-bottom: 2rem; padding-left: 1.5rem; list-style-type: disc; color: var(--text-muted);">
+                <li>Advanced Strategic Planning</li>
+                <li>African Market Dynamics</li>
+                <li>Sustainable Resource Allocation</li>
+                <li>Ethical Leadership</li>
+            </ul>
+            
+            <a href="#contact" class="btn btn-primary" onclick="closeModalFn()" style="width: 100%;">Apply for this Program</a>
+        </div>
+    </div>
+
+    <!-- ================= JAVASCRIPT ================= -->
+    <script>
+        // 1. Theme Toggle (Dark/Light Mode)
+        const themeToggle = document.getElementById('themeToggle');
+        const icon = themeToggle.querySelector('i');
+        const currentTheme = localStorage.getItem('theme');
+
+        if (currentTheme) {
+            document.documentElement.setAttribute('data-theme', currentTheme);
+            if (currentTheme === 'dark') {
+                icon.classList.replace('fa-moon', 'fa-sun');
+            }
+        }
+
+        themeToggle.addEventListener('click', () => {
+            let theme = document.documentElement.getAttribute('data-theme');
+            if (theme === 'dark') {
+                document.documentElement.removeAttribute('data-theme');
+                localStorage.setItem('theme', 'light');
+                icon.classList.replace('fa-sun', 'fa-moon');
+            } else {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                localStorage.setItem('theme', 'dark');
+                icon.classList.replace('fa-moon', 'fa-sun');
+            }
+        });
+
+        // 2. Sticky Navbar & Active Link Update on Scroll
+        const header = document.getElementById('navbar');
+        const sections = document.querySelectorAll('section');
+        const navItems = document.querySelectorAll('.nav-links a');
+
+        window.addEventListener('scroll', () => {
+            // Sticky Nav
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+
+            // Active Menu Item Update
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (scrollY >= sectionTop - 100) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navItems.forEach(item => {
+                item.classList.remove('active');
+                if (item.getAttribute('href') === `#${current}`) {
+                    item.classList.add('active');
+                }
+            });
+        });
+
+        // 3. Mobile Menu Toggle
+        const mobileBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+
+        mobileBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            const isOpened = navLinks.classList.contains('active');
+            mobileBtn.innerHTML = isOpened ? '<i class="fa-solid fa-xmark"></i>' : '<i class="fa-solid fa-bars"></i>';
+        });
+
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                mobileBtn.innerHTML = '<i class="fa-solid fa-bars"></i>';
+            });
+        });
+
+        // 4. Programs Data & Dynamic Tabs Rendering
+        const programsData = {
+            masters: [
+                { abbr: 'PMBA', title: 'Professional Master in Business Administration', duration: '18 Months', desc: 'A comprehensive program designed to equip future executives with holistic business leadership skills, focusing on African market nuances.' },
+                { abbr: 'PMPA', title: 'Professional Master in Public Administration', duration: '18 Months', desc: 'Focuses on public policy, governance, and effective administrative practices for public sector leaders.' },
+                { abbr: 'PMSM', title: 'Professional Master in Science Management', duration: '18 Months', desc: 'Bridging the gap between scientific innovation and operational management for tech and research sectors.' },
+                { abbr: 'PMEI', title: 'Professional Master in Entrepreneurship & Innovation', duration: '12 Months', desc: 'Cultivating the startup mindset, teaching scalable business models and venture creation in emerging markets.' },
+                { abbr: 'PMHRM', title: 'Professional Master in Human Resource Management', duration: '12 Months', desc: 'Advanced strategies for talent acquisition, organizational behavior, and human capital development.' }
+            ],
+            doctoral: [
+                { abbr: 'PDM', title: 'Professional Doctorate of Management', duration: '36 Months', desc: 'The highest professional qualification for management practitioners, emphasizing applied research and strategic problem-solving.' },
+                { abbr: 'PDBA', title: 'Professional Doctorate of Business Administration', duration: '36 Months', desc: 'Designed for senior executives seeking to contribute to business theory and transform industry practices.' },
+                { abbr: 'PDPA', title: 'Professional Doctorate of Public Administration', duration: '36 Months', desc: 'Advanced governance frameworks, policy formulation, and leadership for top-tier public administrators.' },
+                { abbr: 'PDEI', title: 'Professional Doctorate of Entrepreneurship & Innovation', duration: '36 Months', desc: 'Focuses on macroeconomic innovation ecosystems and systemic approaches to fostering entrepreneurship.' },
+                { abbr: 'PDHRM', title: 'Professional Doctorate of Human Resource Management', duration: '36 Months', desc: 'Pioneering research into the future of work, organizational psychology, and strategic human capital.' }
+            ]
+        };
+
+        const grid = document.getElementById('programsGrid');
+        const tabBtns = document.querySelectorAll('.tab-btn');
+
+        function renderPrograms(category) {
+            grid.innerHTML = '';
+            programsData[category].forEach(prog => {
+                const card = document.createElement('div');
+                card.className = 'program-card show';
+                card.innerHTML = `
+                    <span class="program-abbr">${prog.abbr}</span>
+                    <h3>${prog.title}</h3>
+                    <div class="program-duration">
+                        <i class="fa-regular fa-clock"></i> ${prog.duration}
+                    </div>
+                    <button class="btn btn-outline" onclick="openModal('${prog.abbr}', '${prog.title}', '${prog.duration}', '${prog.desc}')" style="width:100%; padding: 0.6rem;">Learn More</button>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // Init initial programs
+        renderPrograms('masters');
+
+        // Tab Switching Logic
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                tabBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                renderPrograms(btn.getAttribute('data-target'));
+            });
+        });
+
+        // 5. Modal Logic
+        const modal = document.getElementById('programModal');
+        const closeModalBtn = document.getElementById('closeModal');
+
+        function openModal(abbr, title, duration, desc) {
+            document.getElementById('modalAbbr').textContent = abbr;
+            document.getElementById('modalTitle').textContent = title;
+            document.getElementById('modalDuration').textContent = duration;
+            document.getElementById('modalDesc').textContent = desc;
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden'; // prevent scrolling behind modal
+        }
+
+        function closeModalFn() {
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        closeModalBtn.addEventListener('click', closeModalFn);
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeModalFn();
+        });
+
+        // 6. Auto-playing Gallery Carousel
+        const track = document.getElementById('carouselTrack');
+        let slideIndex = 0;
+        const totalSlides = 3; // Number of images
+
+        function nextSlide() {
+            slideIndex++;
+            if (slideIndex >= totalSlides) {
+                slideIndex = 0;
+            }
+            track.style.transform = `translateX(-${slideIndex * 33.333}%)`;
+        }
+        
+        // Auto play every 4 seconds
+        setInterval(nextSlide, 4000);
+
+        // 7. Animated Statistics Counters
+        const counters = document.querySelectorAll('.counter');
+        const statsSection = document.getElementById('stats');
+        let counted = false;
+
+        const countUp = () => {
+            counters.forEach(counter => {
+                const target = +counter.getAttribute('data-target');
+                const duration = 2000; // ms
+                const increment = target / (duration / 16); // 60fps
+                
+                let current = 0;
+                const updateCounter = () => {
+                    current += increment;
+                    if (current < target) {
+                        counter.innerText = Math.ceil(current) + "+";
+                        requestAnimationFrame(updateCounter);
+                    } else {
+                        counter.innerText = target + "+";
+                    }
+                };
+                updateCounter();
+            });
+        };
+
+        // Intersection Observer to trigger counter when in view
+        const observerOptions = {
+            root: null,
+            threshold: 0.5
+        };
+
+        const statsObserver = new IntersectionObserver((entries) => {
+            const entry = entries[0];
+            if (entry.isIntersecting && !counted) {
+                countUp();
+                counted = true; // prevent re-counting
+            }
+        }, observerOptions);
+
+        statsObserver.observe(statsSection);
+
+    </script>
+</body>
+</html>
